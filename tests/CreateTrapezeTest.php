@@ -28,7 +28,9 @@ final class CreateTrapezeTest extends TestCase
     {
         $reflectionFunc = new ReflectionFunction('createTrapeze');
 
-        assertSame('array', $reflectionFunc->getReturnType(), 'Тип возвращаемого значения должен быть "array"');
+        $result = (string)$reflectionFunc->getReturnType();
+
+        assertSame('array', $result, 'Тип возвращаемого значения должен быть "array"');
     }
 
     #[TestDox('Тест результата выполнения функции')]

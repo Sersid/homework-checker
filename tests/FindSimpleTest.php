@@ -13,13 +13,6 @@ use function PHPUnit\Framework\assertSame;
 #[TestDox('Тесты функции findSimple')]
 final class FindSimpleTest extends TestCase
 {
-    protected function setUp(): void
-    {
-        parent::setUp();
-
-        include_once __DIR__ . '/1.php';
-    }
-
     #[TestDox('Тест типизации первого аргумента')]
     public function testArgumentATyping(): void
     {
@@ -45,7 +38,9 @@ final class FindSimpleTest extends TestCase
     {
         $reflectionFunc = new ReflectionFunction('findSimple');
 
-        assertSame('array', $reflectionFunc->getReturnType(), 'Тип возвращаемого значения должен быть "array"');
+        $result = (string)$reflectionFunc->getReturnType();
+
+        assertSame('array', $result, 'Тип возвращаемого значения должен быть "array"');
     }
 
     public static function dateProvider(): array

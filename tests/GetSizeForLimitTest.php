@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace Tests;
 
 use PHPUnit\Framework\Attributes\TestDox;
+use PHPUnit\Framework\Attributes\TestWith;
 use PHPUnit\Framework\TestCase;
 use ReflectionFunction;
 use function getSizeForLimit;
@@ -12,13 +13,6 @@ use function PHPUnit\Framework\assertSame;
 #[TestDox('Тесты функции getSizeForLimit')]
 final class GetSizeForLimitTest extends TestCase
 {
-    protected function setUp(): void
-    {
-        parent::setUp();
-
-        include_once __DIR__ . '/1.php';
-    }
-
     #[TestDox('Тест типизации первого аргумента')]
     public function testArgumentATyping(): void
     {
@@ -58,17 +52,20 @@ final class GetSizeForLimitTest extends TestCase
     public function testEmptyA(): void
     {
         $a = [];
+        $b = 1; // any
 
-        $result = getSizeForLimit($a, 1);
+        $result = getSizeForLimit($a, $b);
 
         assertSame([], $result);
     }
 
     #[TestDox('Тест передачи пустого массива')]
-    public function testIncorrectA(): void
+    #[TestWith([[1, 3, 4]])]
+    #[TestWith([[['s' => 4], ['a' => 10.0]]])]
+    public function testIncorrectA(array $a): void
     {
         $this->expectException(\Exception::class);
 
-        getSizeForLimit([1, 3, 4], 1);
+        getSizeForLimit($a, 1);
     }
 }
