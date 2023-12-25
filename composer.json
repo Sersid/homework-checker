@@ -1,0 +1,26 @@
+{
+  "name": "sersid/homework-checker",
+  "description": "description",
+  "minimum-stability": "stable",
+  "license": "proprietary",
+  "authors": [
+    {
+      "name": "Sersid",
+      "email": "sersoned@gmail.com"
+    }
+  ],
+  "require": {
+    "php": "^8.2"
+  },
+  "autoload": {
+    "files": ["src/1.php"]
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "Tests\\": "tests/"
+    }
+  },
+  "require-dev": {
+    "phpunit/phpunit": "^10.5"
+  }
+}
