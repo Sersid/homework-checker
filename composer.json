@@ -13,7 +13,7 @@
     "php": "^8.2"
   },
   "autoload": {
-    "files": ["src/1.php"]
+    "files": ["src/1.php", "src/2.php"]
   },
   "autoload-dev": {
     "psr-4": {
