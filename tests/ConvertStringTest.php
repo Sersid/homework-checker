@@ -45,6 +45,7 @@ final class ConvertStringTest extends TestCase
     #[TestWith(['two one two', 'two', 'two one owt'])]
     #[TestWith(['один один два', 'один', 'один нидо два'])]
     #[TestWith(['one two three', 'four', 'one two three'])]
+    #[TestWith(['OneTwoThreeOneOne', 'One', 'OneTwoThreeenOOne'])]
     public function testResult(string $a, string $b, string $expected): void
     {
         $result = convertString($a, $b);
