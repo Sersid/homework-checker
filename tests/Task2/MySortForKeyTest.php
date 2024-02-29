@@ -82,6 +82,8 @@ final class MySortForKeyTest extends TestCase
         assertSame($expected, $result, 'Результат функции не корректный');
     }
 
+
+    #[TestDox('Тест реакции на передачу неизвестного ключа')]
     public function testException(): void
     {
         $a = [['a' => 2, 'b' => 1, 'c' => 456], ['b' => 3, 'a' => 1, 'c' => 123]];
