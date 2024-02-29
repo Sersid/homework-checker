@@ -3,3 +3,7 @@
 function convertString($a, $b)
 {
 }
+
+function mySortForKey($a, $b)
+{
+}

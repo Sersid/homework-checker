@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace Tests;
+namespace Tests\Task1;
 
 use Exception;
 use PHPUnit\Framework\Attributes\TestDox;

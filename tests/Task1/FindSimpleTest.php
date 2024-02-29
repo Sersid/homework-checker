@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace Tests;
+namespace Tests\Task1;
 
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\TestDox;
@@ -43,7 +43,7 @@ final class FindSimpleTest extends TestCase
         assertSame('array', $result, 'Тип возвращаемого значения должен быть "array"');
     }
 
-    public static function dateProvider(): array
+    public static function dataProvider(): array
     {
         return [
             [
@@ -64,7 +64,7 @@ final class FindSimpleTest extends TestCase
         ];
     }
 
-    #[DataProvider('dateProvider')]
+    #[DataProvider('dataProvider')]
     #[TestDox('Тест результата выполнения функции')]
     public function testResult(int $a, int $b, array $expected): void
     {
