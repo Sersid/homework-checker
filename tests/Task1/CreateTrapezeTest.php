@@ -45,7 +45,7 @@ final class CreateTrapezeTest extends TestCase
 
         $result = createTrapeze($a);
 
-        assertSame($expected,$result, 'Результат функции не корректный');
+        assertSame($expected, $result, 'Результат функции не корректный');
     }
 
     #[TestDox('Тест передачи пустого массива')]
