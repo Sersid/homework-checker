@@ -3,8 +3,8 @@ declare(strict_types=1);
 
 namespace Tests\Task1;
 
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\TestDox;
-use PHPUnit\Framework\Attributes\TestWith;
 use PHPUnit\Framework\TestCase;
 use ReflectionFunction;
 use function PHPUnit\Framework\assertSame;
@@ -23,10 +23,18 @@ final class SquareTrapezeTest extends TestCase
         assertSame('array', $a?->getType()?->getName(), 'Аргумент не имеет тип array');
     }
 
+    public static function invalidDataProvider(): iterable
+    {
+        return [
+            'ключ а - это кириллица' => [['a' => 1, 'b' => 3, 'c' => 5]],
+            'отсутствует ключ b' => [['a' => 4, 'c' => 8]],
+            'отсутствует ключ с' => [['a' => 6, 'b' => 4]],
+            'ключ с содержит строку' => [['a' => 1, 'b' => 3, 'c' => 'qwe']]
+        ];
+    }
+
     #[TestDox('Тест реакции на некорректный массив')]
-    #[TestWith([['a' => 1, 'b' => 3, 'c' => 5]])] // ключ а - это кириллица
-    #[TestWith([['a' => 4, 'c' => 8]])] // отсутствует ключ b
-    #[TestWith([['a' => 6, 'b' => 4]])] // отсутствует ключ с
+    #[DataProvider('invalidDataProvider')]
     public function testNotHasKeys(array $a): void
     {
         $this->expectException(\Exception::class);
@@ -41,6 +49,7 @@ final class SquareTrapezeTest extends TestCase
             ['a' => 4, 'b' => 6, 'c' => 8],
             ['a' => 6, 'b' => 4, 'c' => 2],
             ['a' => 6, 'b' => 4, 'c' => 0],
+            ['a' => 1, 'b' => 2, 'c' => 1],
         ];
 
         squareTrapeze($a);
@@ -51,6 +60,7 @@ final class SquareTrapezeTest extends TestCase
             ['a' => 4, 'b' => 6, 'c' => 8, 's' => 40.0],
             ['a' => 6, 'b' => 4, 'c' => 2, 's' => 10.0],
             ['a' => 6, 'b' => 4, 'c' => 0, 's' => 0.0],
+            ['a' => 1, 'b' => 2, 'c' => 1, 's' => 1.5],
         ];
         assertSame($expected, $a, 'Результат некорректный');
     }

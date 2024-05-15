@@ -3,8 +3,8 @@ declare(strict_types=1);
 
 namespace Tests\Task1;
 
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\TestDox;
-use PHPUnit\Framework\Attributes\TestWith;
 use PHPUnit\Framework\TestCase;
 use ReflectionFunction;
 use function getSizeForLimit;
@@ -59,9 +59,27 @@ final class GetSizeForLimitTest extends TestCase
         assertSame([], $result);
     }
 
-    #[TestDox('Тест передачи пустого массива')]
-    #[TestWith([[1, 3, 4]])]
-    #[TestWith([[['s' => 4], ['a' => 10.0]]])]
+    public static function invalidDataProvider(): iterable
+    {
+        return [
+            'не все элементы массива содержат ключ "s"' => [
+                [
+                    ['a' => 1, 'b' => 3, 'c' => 5, 's' => 10.0],
+                    ['a' => 4, 'b' => 6, 'c' => 8],
+                ]
+            ],
+            'ключ "s" по каким-то причинам содержит null' => [
+                [
+                    ['a' => 5, 'b' => 6, 'c' => 7, 's' => 38.5],
+                    ['a' => 4, 'b' => 6, 'c' => 8, 's' => null],
+                    ['a' => 1, 'b' => 3, 'c' => 5, 's' => 10.0],
+                ]
+            ],
+        ];
+    }
+
+    #[TestDox('Тест передачи некорректного массива')]
+    #[DataProvider('invalidDataProvider')]
     public function testIncorrectA(array $a): void
     {
         $this->expectException(\Exception::class);
