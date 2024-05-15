@@ -24,9 +24,9 @@ final class SquareTrapezeTest extends TestCase
     }
 
     #[TestDox('Тест реакции на некорректный массив')]
-    #[TestWith([['a' => 1, 'b' => 3, 'c' => 5]])]
-    #[TestWith([['a' => 4, 'c' => 8]])]
-    #[TestWith([['a' => 6, 'b' => 4]])]
+    #[TestWith([['a' => 1, 'b' => 3, 'c' => 5]])] // ключ а - это кириллица
+    #[TestWith([['a' => 4, 'c' => 8]])] // отсутствует ключ b
+    #[TestWith([['a' => 6, 'b' => 4]])] // отсутствует ключ с
     public function testNotHasKeys(array $a): void
     {
         $this->expectException(\Exception::class);
