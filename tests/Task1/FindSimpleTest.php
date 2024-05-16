@@ -37,7 +37,7 @@ final class FindSimpleTest extends TestCase
     {
         $a = $this->reflectionFunc->getParameters()[0] ?? null;
 
-        assertSame('int', $a?->getType()?->getName(), 'Аргумент $a не имеет тип int');
+        assertSame('int', $a?->getType()?->getName());
     }
 
     #[TestDox('Указан тип $b (int)')]
@@ -45,7 +45,7 @@ final class FindSimpleTest extends TestCase
     {
         $b = $this->reflectionFunc->getParameters()[1] ?? null;
 
-        assertSame('int', $b?->getType()?->getName(), 'Аргумент $b не имеет тип int');
+        assertSame('int', $b?->getType()?->getName());
     }
 
     #[TestDox('Указан тип возвращаемого значения (array)')]
@@ -53,13 +53,13 @@ final class FindSimpleTest extends TestCase
     {
         $result = (string)$this->reflectionFunc->getReturnType();
 
-        assertSame('array', $result, 'Тип возвращаемого значения должен быть "array"');
+        assertSame('array', $result);
     }
 
     public static function dataProvider(): array
     {
         return [
-            '$a = 1 and $b = 7' => [
+            '$a = 0 and $b = 7' => [
                 0,
                 7,
                 [2, 3, 5, 7],
@@ -69,20 +69,20 @@ final class FindSimpleTest extends TestCase
                 3,
                 [2, 3]
             ],
-            '$a = 3 and $b = 40' => [
+            '$a = 3 and $b = 41' => [
                 3,
                 41,
                 [3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41],
-            ],
-            '$a = 50 and $b = 100' => [
-                50,
-                100,
-                [53, 59, 61, 67, 71, 73, 79, 83, 89, 97]
             ],
             '$a = 54 and $b = 58' => [
                 54,
                 58,
                 []
+            ],
+            '$a = 50 and $b = 100' => [
+                50,
+                100,
+                [53, 59, 61, 67, 71, 73, 79, 83, 89, 97]
             ],
         ];
     }
