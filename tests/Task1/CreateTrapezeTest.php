@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace Tests\Task1;
 
 use Exception;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\TestDox;
 use PHPUnit\Framework\TestCase;
 use ReflectionFunction;
@@ -33,46 +34,49 @@ final class CreateTrapezeTest extends TestCase
         assertSame('array', $result, 'Тип возвращаемого значения должен быть "array"');
     }
 
-    #[TestDox('Тест результата выполнения функции')]
-    public function testResult(): void
+    public static function dataProvider(): iterable
     {
-        $a = [1, 3, 5, 4, 6, 8, 6, 4, 2];
-        $expected = [
-            ['a' => 1, 'b' => 3, 'c' => 5],
-            ['a' => 4, 'b' => 6, 'c' => 8],
-            ['a' => 6, 'b' => 4, 'c' => 2],
+        return [
+            [
+                [1, 2, 3, 4, 5, 6],
+                [
+                    ['a' => 1, 'b' => 2, 'c' => 3],
+                    ['a' => 4, 'b' => 5, 'c' => 6],
+                ],
+            ],
+            [
+                [1, 3, 5, 4, 6, 8, 6, 4, 2],
+                [
+                    ['a' => 1, 'b' => 3, 'c' => 5],
+                    ['a' => 4, 'b' => 6, 'c' => 8],
+                    ['a' => 6, 'b' => 4, 'c' => 2],
+                ]
+            ]
         ];
+    }
 
+    #[TestDox('Тест результата выполнения функции')]
+    #[DataProvider('dataProvider')]
+    public function testResult(array $a, array $expected): void
+    {
         $result = createTrapeze($a);
 
         assertSame($expected, $result, 'Результат функции не корректный');
     }
 
-    #[TestDox('Тест передачи пустого массива')]
-    public function testEmptyArgument(): void
+    public static function invalidDataProvider(): iterable
     {
-        $a = [];
-
-        $this->expectException(Exception::class);
-
-        createTrapeze($a);
+        return [
+            'пустой массив' => [[]],
+            'массив с отрицательными числами' => [[-2, 3, 5, 2, -3, 5]],
+            'массива с количеством элементов не кратно 3' => [[1, 3, 5, 2]],
+        ];
     }
 
-    #[TestDox('Тест передачи отрицательного массива')]
-    public function testArgumentHasNegativeNumber(): void
+    #[TestDox('Тест передачи некорректного массива')]
+    #[DataProvider('invalidDataProvider')]
+    public function testInvalidArgument(array $a): void
     {
-        $a = [-2, 3, 5, 2, -3, 5];
-
-        $this->expectException(Exception::class);
-
-        createTrapeze($a);
-    }
-
-    #[TestDox('Тест передачи массива с количеством элементов не кратно 3')]
-    public function testArgumentNotMultipleOf3(): void
-    {
-        $a = [1, 3, 5, 2];
-
         $this->expectException(Exception::class);
 
         createTrapeze($a);

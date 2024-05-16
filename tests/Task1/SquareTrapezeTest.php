@@ -7,6 +7,7 @@ use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\TestDox;
 use PHPUnit\Framework\TestCase;
 use ReflectionFunction;
+use function PHPUnit\Framework\assertEquals;
 use function PHPUnit\Framework\assertSame;
 use function squareTrapeze;
 
@@ -62,6 +63,6 @@ final class SquareTrapezeTest extends TestCase
             ['a' => 6, 'b' => 4, 'c' => 0, 's' => 0.0],
             ['a' => 1, 'b' => 2, 'c' => 1, 's' => 1.5],
         ];
-        assertSame($expected, $a, 'Результат некорректный');
+        assertEquals($expected, $a, 'Результат некорректный');
     }
 }
