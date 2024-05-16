@@ -10,35 +10,48 @@ use ReflectionFunction;
 use function findSimple;
 use function PHPUnit\Framework\assertSame;
 
-#[TestDox('Тесты функции findSimple')]
+#[TestDox('Функция findSimple():')]
 final class FindSimpleTest extends TestCase
 {
-    #[TestDox('Тест типизации первого аргумента')]
+    private ReflectionFunction $reflectionFunc;
+
+    protected function setUp(): void
+    {
+        parent::setUp();
+        $this->reflectionFunc = new ReflectionFunction('findSimple');
+    }
+
+    #[TestDox('Содержит аргументы $a и $b')]
+    public function testArgs(): void
+    {
+        $args = [];
+        foreach ($this->reflectionFunc->getParameters() as $parameter) {
+            $args[] = $parameter->getName();
+        }
+
+        assertSame(['a', 'b'], $args);
+    }
+
+    #[TestDox('Указан тип $a (int)')]
     public function testArgumentATyping(): void
     {
-        $reflectionFunc = new ReflectionFunction('findSimple');
-
-        $a = $reflectionFunc->getParameters()[0] ?? null;
+        $a = $this->reflectionFunc->getParameters()[0] ?? null;
 
         assertSame('int', $a?->getType()?->getName(), 'Аргумент $a не имеет тип int');
     }
 
-    #[TestDox('Тест типизации второго аргумента аргумента')]
+    #[TestDox('Указан тип $b (int)')]
     public function testArgumentBTyping(): void
     {
-        $reflectionFunc = new ReflectionFunction('findSimple');
-
-        $b = $reflectionFunc->getParameters()[1] ?? null;
+        $b = $this->reflectionFunc->getParameters()[1] ?? null;
 
         assertSame('int', $b?->getType()?->getName(), 'Аргумент $b не имеет тип int');
     }
 
-    #[TestDox('Тест возвращаемого значения')]
+    #[TestDox('Указан тип возвращаемого значения (array)')]
     public function testReturnType(): void
     {
-        $reflectionFunc = new ReflectionFunction('findSimple');
-
-        $result = (string)$reflectionFunc->getReturnType();
+        $result = (string)$this->reflectionFunc->getReturnType();
 
         assertSame('array', $result, 'Тип возвращаемого значения должен быть "array"');
     }
@@ -46,29 +59,34 @@ final class FindSimpleTest extends TestCase
     public static function dataProvider(): array
     {
         return [
-            [
+            '$a = 1 and $b = 7' => [
                 1,
                 7,
                 [2, 3, 5, 7],
             ],
-            [
+            '$a = 2 and $b = 40' => [
                 2,
                 41,
                 [2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41],
             ],
-            [
+            '$a = 50 and $b = 100' => [
                 50,
                 100,
                 [53, 59, 61, 67, 71, 73, 79, 83, 89, 97]
-            ]
+            ],
+            '$a = 54 and $b = 58' => [
+                54,
+                58,
+                []
+            ],
         ];
     }
 
+    #[TestDox('Правильный результат выполнения функции')]
     #[DataProvider('dataProvider')]
-    #[TestDox('Тест результата выполнения функции')]
     public function testResult(int $a, int $b, array $expected): void
     {
-        $result = findSimple($a, $b);
+        $result = iterator_to_array(findSimple($a, $b));
 
         assertSame($expected, $result);
     }
@@ -83,7 +101,7 @@ final class FindSimpleTest extends TestCase
     }
 
     #[DataProvider('invalidArgumentDataProvider')]
-    #[TestDox('Тест реакции на некорректные аргументы')]
+    #[TestDox('Выбрасывается исключение')]
     public function testInvalidArguments(int $a, int $b): void
     {
         $this->expectException(\Exception::class);
