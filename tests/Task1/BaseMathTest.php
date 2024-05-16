@@ -205,8 +205,7 @@ final class BaseMathTest extends TestCase
 
     private function getBaseMathClass(): \BaseMath
     {
-        return new class extends \BaseMath
-        {
+        return new class () extends \BaseMath {
             public function getValue(): int
             {
                 return 0;
