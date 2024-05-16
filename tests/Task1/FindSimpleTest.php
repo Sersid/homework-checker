@@ -60,14 +60,19 @@ final class FindSimpleTest extends TestCase
     {
         return [
             '$a = 1 and $b = 7' => [
-                1,
+                0,
                 7,
                 [2, 3, 5, 7],
             ],
-            '$a = 2 and $b = 40' => [
+            '$a = 2 and $b = 3' => [
                 2,
+                3,
+                [2, 3]
+            ],
+            '$a = 3 and $b = 40' => [
+                3,
                 41,
-                [2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41],
+                [3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41],
             ],
             '$a = 50 and $b = 100' => [
                 50,
@@ -82,7 +87,7 @@ final class FindSimpleTest extends TestCase
         ];
     }
 
-    #[TestDox('Правильный результат выполнения функции')]
+    #[TestDox('Верный результат выполнения функции')]
     #[DataProvider('dataProvider')]
     public function testResult(int $a, int $b, array $expected): void
     {
