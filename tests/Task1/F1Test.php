@@ -9,6 +9,7 @@ use PHPUnit\Framework\Attributes\Depends;
 use PHPUnit\Framework\Attributes\TestDox;
 use PHPUnit\Framework\TestCase;
 use ReflectionClass;
+use function PHPUnit\Framework\assertEquals;
 use function PHPUnit\Framework\assertSame;
 use function PHPUnit\Framework\assertTrue;
 
@@ -64,22 +65,20 @@ final class F1Test extends TestCase
     public static function dataProvider(): iterable
     {
         return [
-            [
-                ['a' => 1, 'b' => 2, 'c' => 3],
-                8.0
-            ],
+            [4, 2, 6],
         ];
     }
 
     #[TestDox('Результат выполнения getValue()')]
     #[DataProvider('dataProvider')]
-    public function testGetValue(array $args, float $expected): void
+    public function testGetValue(int $a, int $b, int $c): void
     {
-        $f1 = new \F1(...$args);
-
         // (a * (b ^ c) + (((a / c) ^ b) % 3) ^ min(a, b, c))
-        $result = (float)$f1->getValue();
+        $expected = $a * ($b ** $c) + ((($a / $c) ** $b) % 3) ** min($a, $b, $c);
+        $f1 = new \F1($a, $b, $c);
 
-        assertSame($expected, $result);
+        $result = $f1->getValue();
+
+        assertEquals($expected, $result);
     }
 }
