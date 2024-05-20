@@ -60,6 +60,7 @@ final class GetSizeForLimitTest extends TestCase
 
         $result = getSizeForLimit($a, 39);
 
+        // ожидается, что $result === $a[2]
         assertSame($a[2], $result);
     }
 

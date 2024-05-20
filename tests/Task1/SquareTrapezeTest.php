@@ -41,6 +41,14 @@ final class SquareTrapezeTest extends TestCase
         assertSame('array', $a?->getType()?->getName());
     }
 
+    #[TestDox('Указан тип возвращаемого значения (void)')]
+    public function testReturnType(): void
+    {
+        $result = (string)$this->reflectionFunc->getReturnType();
+
+        assertSame('void', $result);
+    }
+
     public static function invalidDataProvider(): iterable
     {
         return [

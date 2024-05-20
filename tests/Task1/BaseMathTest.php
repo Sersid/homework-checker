@@ -145,6 +145,37 @@ final class BaseMathTest extends TestCase
         assertTrue($method->isAbstract(), 'Метод getValue() должен быть абстрактным');
     }
 
+    #[TestDox('Метод exp1() должен быть публичным')]
+    #[Depends('testClassMustContainExp1Method')]
+    public function testExp1MustBePublic(): void
+    {
+        $this->assertMethodIsPublic('exp1');
+    }
+
+    #[TestDox('Метод exp2() должен быть публичным')]
+    #[Depends('testClassMustContainExp2Method')]
+    public function testExp2MustBePublic(): void
+    {
+        $this->assertMethodIsPublic('exp2');
+    }
+
+    #[TestDox('Метод getValue() должен быть публичным')]
+    #[Depends('testClassMustContainGetValueMethod')]
+    public function testGetValueMustBePublic(): void
+    {
+        $this->assertMethodIsPublic('getValue');
+    }
+
+    private function assertMethodIsPublic(string $methodName): void
+    {
+        $method = $this->getMethod($methodName);
+
+        assertTrue(
+            $method->isPublic(),
+            'Метод ' . $methodName . '() должен быть публичным'
+        );
+    }
+
     public static function exp1DataProvider(): iterable
     {
         return [
@@ -206,7 +237,7 @@ final class BaseMathTest extends TestCase
     private function getBaseMathClass(): \BaseMath
     {
         return new class () extends \BaseMath {
-            public function getValue(): int
+            public function getValue(): float
             {
                 return 0;
             }

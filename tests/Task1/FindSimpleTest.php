@@ -59,8 +59,8 @@ final class FindSimpleTest extends TestCase
     public static function dataProvider(): array
     {
         return [
-            '$a = 0 and $b = 7' => [
-                0,
+            '$a = 1 and $b = 7' => [
+                1,
                 7,
                 [2, 3, 5, 7],
             ],
