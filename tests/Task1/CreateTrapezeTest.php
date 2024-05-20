@@ -11,27 +11,42 @@ use ReflectionFunction;
 use function createTrapeze;
 use function PHPUnit\Framework\assertSame;
 
-#[TestDox('Тесты функции createTrapeze')]
+#[TestDox('Функция createTrapeze():')]
 final class CreateTrapezeTest extends TestCase
 {
-    #[TestDox('Тест типизации аргумента')]
-    public function testArgumentATyping(): void
+    private ReflectionFunction $reflectionFunc;
+
+    protected function setUp(): void
     {
-        $reflectionFunc = new ReflectionFunction('createTrapeze');
-
-        $a = $reflectionFunc->getParameters()[0] ?? null;
-
-        assertSame('array', $a?->getType()?->getName(), 'Аргумент не имеет тип array');
+        parent::setUp();
+        $this->reflectionFunc = new ReflectionFunction('createTrapeze');
     }
 
-    #[TestDox('Тест возвращаемого значения')]
+    #[TestDox('Содержит аргумент $a')]
+    public function testArgs(): void
+    {
+        $args = [];
+        foreach ($this->reflectionFunc->getParameters() as $parameter) {
+            $args[] = $parameter->getName();
+        }
+
+        assertSame(['a'], $args);
+    }
+
+    #[TestDox('Указан тип $a (array)')]
+    public function testArgumentATyping(): void
+    {
+        $a = $this->reflectionFunc->getParameters()[0] ?? null;
+
+        assertSame('array', $a?->getType()?->getName());
+    }
+
+    #[TestDox('Указан тип возвращаемого значения (array)')]
     public function testReturnType(): void
     {
-        $reflectionFunc = new ReflectionFunction('createTrapeze');
+        $result = (string)$this->reflectionFunc->getReturnType();
 
-        $result = (string)$reflectionFunc->getReturnType();
-
-        assertSame('array', $result, 'Тип возвращаемого значения должен быть "array"');
+        assertSame('array', $result);
     }
 
     public static function dataProvider(): iterable
@@ -55,7 +70,7 @@ final class CreateTrapezeTest extends TestCase
         ];
     }
 
-    #[TestDox('Тест результата выполнения функции')]
+    #[TestDox('Верный результат выполнения функции')]
     #[DataProvider('dataProvider')]
     public function testResult(array $a, array $expected): void
     {
@@ -73,7 +88,7 @@ final class CreateTrapezeTest extends TestCase
         ];
     }
 
-    #[TestDox('Тест передачи некорректного массива')]
+    #[TestDox('Выбрасывается исключение')]
     #[DataProvider('invalidDataProvider')]
     public function testInvalidArgument(array $a): void
     {

@@ -12,7 +12,7 @@ use ReflectionMethod;
 use function PHPUnit\Framework\assertSame;
 use function PHPUnit\Framework\assertTrue;
 
-#[TestDox('Тесты класса BaseMath')]
+#[TestDox('Класс BaseMath:')]
 final class BaseMathTest extends TestCase
 {
     private ReflectionClass $reflectionClass;

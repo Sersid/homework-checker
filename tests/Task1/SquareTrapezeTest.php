@@ -11,17 +11,34 @@ use function PHPUnit\Framework\assertEquals;
 use function PHPUnit\Framework\assertSame;
 use function squareTrapeze;
 
-#[TestDox('Тесты функции squareTrapeze')]
+#[TestDox('Функция createTrapeze():')]
 final class SquareTrapezeTest extends TestCase
 {
-    #[TestDox('Тест типизации аргумента')]
+    private ReflectionFunction $reflectionFunc;
+
+    protected function setUp(): void
+    {
+        parent::setUp();
+        $this->reflectionFunc = new ReflectionFunction('squareTrapeze');
+    }
+
+    #[TestDox('Содержит аргумент $a')]
+    public function testArgs(): void
+    {
+        $args = [];
+        foreach ($this->reflectionFunc->getParameters() as $parameter) {
+            $args[] = $parameter->getName();
+        }
+
+        assertSame(['a'], $args);
+    }
+
+    #[TestDox('Указан тип $a (array)')]
     public function testArgumentATyping(): void
     {
-        $reflectionFunc = new ReflectionFunction('squareTrapeze');
+        $a = $this->reflectionFunc->getParameters()[0] ?? null;
 
-        $a = $reflectionFunc->getParameters()[0] ?? null;
-
-        assertSame('array', $a?->getType()?->getName(), 'Аргумент не имеет тип array');
+        assertSame('array', $a?->getType()?->getName());
     }
 
     public static function invalidDataProvider(): iterable
@@ -34,7 +51,7 @@ final class SquareTrapezeTest extends TestCase
         ];
     }
 
-    #[TestDox('Тест реакции на некорректный массив')]
+    #[TestDox('Выбрасывается исключение')]
     #[DataProvider('invalidDataProvider')]
     public function testNotHasKeys(array $a): void
     {
@@ -43,6 +60,7 @@ final class SquareTrapezeTest extends TestCase
         squareTrapeze($a);
     }
 
+    #[TestDox('Верный результат выполнения функции')]
     public function testResult(): void
     {
         $a = [

@@ -13,6 +13,7 @@ use function PHPUnit\Framework\assertEquals;
 use function PHPUnit\Framework\assertSame;
 use function PHPUnit\Framework\assertTrue;
 
+#[TestDox('Класс F1:')]
 final class F1Test extends TestCase
 {
     private ReflectionClass $reflectionClass;
@@ -57,6 +58,18 @@ final class F1Test extends TestCase
         $allIsNumeric = true;
         foreach ($this->reflectionClass->getConstructor()->getParameters() as $parameter) {
             $allIsNumeric = $allIsNumeric && in_array($parameter->getType()?->getName(), ['float', 'int'], true);
+        }
+
+        assertTrue($allIsNumeric, 'Все аргументы конструктора должны иметь тип int или float');
+    }
+
+    #[TestDox('У всех свойств класс указан тип')]
+    #[Depends('testConstructMustContainArgs')]
+    public function testProps(): void
+    {
+        $allIsNumeric = true;
+        foreach ($this->reflectionClass->getProperties() as $property) {
+            $allIsNumeric = $allIsNumeric && $property->getType() !== null;
         }
 
         assertTrue($allIsNumeric, 'Все аргументы конструктора должны иметь тип int или float');
