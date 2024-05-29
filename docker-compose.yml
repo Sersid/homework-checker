@@ -10,3 +10,23 @@ services:
     environment:
       XDEBUG_CONFIG: "remote_host=192.168.100.1 remote_enable=1"
       PHP_IDE_CONFIG: "serverName=Docker"
+      PROJECT_DB_HOST: ${PROJECT_DB_HOST}
+      PROJECT_DB_NAME: ${PROJECT_DB_NAME}
+      PROJECT_DB_USERNAME: ${PROJECT_DB_USERNAME}
+      PROJECT_DB_PASSWORD: ${PROJECT_DB_PASSWORD}
+  homework-checker-mysql:
+    image: mysql:5.7
+    container_name: homework-checker-mysql
+    restart: always
+    environment:
+      MYSQL_DATABASE: ${PROJECT_DB_NAME}
+      MYSQL_USER: ${PROJECT_DB_USERNAME}
+      MYSQL_PASSWORD: ${PROJECT_DB_PASSWORD}
+      MYSQL_ROOT_USER: 'root'
+      MYSQL_ROOT_PASSWORD: 'password'
+    ports:
+      - '3306:3306'
+    expose:
+      - '3306'
+    volumes:
+      - './.mysql-data/db:/var/lib/mysql'

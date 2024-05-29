@@ -11,7 +11,8 @@
   ],
   "require": {
     "php": "^8.2",
-    "ext-mbstring": "*"
+    "ext-mbstring": "*",
+    "ext-mysqli": "*"
   },
   "autoload": {
     "files": ["src/1.php", "src/2.php"]
