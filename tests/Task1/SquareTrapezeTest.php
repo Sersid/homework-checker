@@ -11,7 +11,7 @@ use function PHPUnit\Framework\assertEquals;
 use function PHPUnit\Framework\assertSame;
 use function squareTrapeze;
 
-#[TestDox('Функция createTrapeze():')]
+#[TestDox('Функция squareTrapeze():')]
 final class SquareTrapezeTest extends TestCase
 {
     private ReflectionFunction $reflectionFunc;
