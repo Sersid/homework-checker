@@ -6,7 +6,6 @@ namespace Tests\Task2;
 use Exception;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\TestDox;
-use PHPUnit\Framework\Attributes\TestWith;
 use PHPUnit\Framework\TestCase;
 use ReflectionFunction;
 use function PHPUnit\Framework\assertSame;

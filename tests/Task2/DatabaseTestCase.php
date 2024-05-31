@@ -4,7 +4,6 @@ declare(strict_types=1);
 namespace Tests\Task2;
 
 use PDO;
-use PHPUnit\Framework\Attributes\TestDox;
 use PHPUnit\Framework\TestCase;
 
 abstract class DatabaseTestCase extends TestCase

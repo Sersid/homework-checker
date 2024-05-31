@@ -11,6 +11,7 @@ return (new Config())
         '@PSR12' => true,
         'blank_line_after_opening_tag' => false,
         'blank_line_between_import_groups' => false,
+        'no_unused_imports' => true,
     ])
     ->setFinder($finder)
 ;
