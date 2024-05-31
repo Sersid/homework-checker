@@ -3,7 +3,7 @@
 // ВНИМАНИЕ! Перед прогоном тестов нужно настроить подключение к бд:
 
 // HOST: homework-checker-mysql
-// NAME: test_samson
+// DB: test_samson
 // USERNAME: root
 // PASSWORD: password
 
