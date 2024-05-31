@@ -23,7 +23,7 @@ services:
       MYSQL_ROOT_USER: ${PROJECT_DB_USERNAME}
       MYSQL_ROOT_PASSWORD: ${PROJECT_DB_PASSWORD}
     ports:
-      - '3306:3306'
+      - '33066:3306'
     expose:
       - '3306'
     volumes:
