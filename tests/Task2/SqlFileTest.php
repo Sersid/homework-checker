@@ -19,15 +19,10 @@ final class SqlFileTest extends DatabaseTestCase
     #[TestWith(['a_category'])]
     public function testTableExist(string $table): void
     {
-        $tables = $this->getTables();
+        $tables = self::$pdo->query("SHOW TABLES")->fetchAll(PDO::FETCH_COLUMN);
 
         $result = in_array($table, $tables, true);
 
         assertTrue($result);
-    }
-
-    private function getTables(): array
-    {
-        return self::$pdo->query("SHOW TABLES")->fetchAll(PDO::FETCH_COLUMN);
     }
 }
