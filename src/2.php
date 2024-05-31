@@ -1,10 +1,11 @@
 <?php
 // сюда копируется содержимое файла
 // ВНИМАНИЕ! Перед прогоном тестов нужно настроить подключение к бд:
-// getenv('PROJECT_DB_HOST')
-// getenv('PROJECT_DB_NAME')
-// getenv('PROJECT_DB_USERNAME')
-// getenv('PROJECT_DB_PASSWORD')
+
+// HOST: homework-checker-mysql
+// NAME: test_samson
+// USERNAME: root
+// PASSWORD: password
 
 function convertString($a, $b)
 {
