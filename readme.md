@@ -13,5 +13,5 @@ make install
 2) Запуск тестов:
 ```bash
 make bash
-vendor/bin/phpunit tests/Task1/ --testdox
+vendor/bin/phpunit --testdox tests/Task1/
 ```

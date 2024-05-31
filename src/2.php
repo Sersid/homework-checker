@@ -15,10 +15,10 @@ function mySortForKey($a, $b)
 {
 }
 
-function importXml($a)
+function importXml($filename)
 {
 }
 
-function exportXml($a, $b)
+function exportXml($filename, $categoryId)
 {
 }

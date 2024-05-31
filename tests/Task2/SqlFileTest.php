@@ -7,6 +7,7 @@ use PDO;
 use PHPUnit\Framework\Attributes\Depends;
 use PHPUnit\Framework\Attributes\TestDox;
 use PHPUnit\Framework\Attributes\TestWith;
+use Tests\DatabaseTestCase;
 use function in_array;
 use function PHPUnit\Framework\assertTrue;
 

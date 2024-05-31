@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace Tests\Task2;
+namespace Tests;
 
 use PDO;
 use PHPUnit\Framework\TestCase;
@@ -30,8 +30,8 @@ abstract class DatabaseTestCase extends TestCase
     {
         self::$pdo = new PDO(
             'mysql:host=' . getenv('PROJECT_DB_HOST'),
-            'root',
-            'password'
+            getenv('PROJECT_DB_USERNAME'),
+            getenv('PROJECT_DB_PASSWORD'),
         );
     }
 
@@ -44,7 +44,7 @@ abstract class DatabaseTestCase extends TestCase
 
     private static function importSql(): void
     {
-        $file = __DIR__ . '/../../src/2.sql';
+        $file = __DIR__ . '/../src/2.sql';
         $sql = file_get_contents($file);
         self::$pdo->exec($sql);
     }
