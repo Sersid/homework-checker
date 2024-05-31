@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace Tests\Task2;
 
 use PDO;
+use PHPUnit\Framework\Attributes\Depends;
 use PHPUnit\Framework\Attributes\TestDox;
 use PHPUnit\Framework\Attributes\TestWith;
 use function in_array;
@@ -24,5 +25,15 @@ final class SqlFileTest extends DatabaseTestCase
         $result = in_array($table, $tables, true);
 
         assertTrue($result);
+    }
+
+    #[TestDox('a_category содержит все необходимые столбцы для дальнейшего тестирования')]
+    #[Depends('testTableExist')]
+    public function testCategoryTable(): void
+    {
+        $tableFields = self::$pdo->query("DESCRIBE a_category")->fetchAll(PDO::FETCH_COLUMN);
+
+        assertTrue(in_array('code', $tableFields, true));
+        assertTrue(in_array('name', $tableFields, true));
     }
 }
