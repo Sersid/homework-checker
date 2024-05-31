@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace Tests\Task2;
 
+use PDO;
 use PHPUnit\Framework\Attributes\TestDox;
 use PHPUnit\Framework\Attributes\TestWith;
 use function in_array;
@@ -20,11 +21,13 @@ final class SqlFileTest extends DatabaseTestCase
     {
         $tables = $this->getTables();
 
-        assertTrue(in_array($table, $tables, true));
+        $result = in_array($table, $tables, true);
+
+        assertTrue($result);
     }
 
     private function getTables(): array
     {
-        return self::$pdo->query("SHOW TABLES")->fetchAll(\PDO::FETCH_COLUMN);
+        return self::$pdo->query("SHOW TABLES")->fetchAll(PDO::FETCH_COLUMN);
     }
 }
