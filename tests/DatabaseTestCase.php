@@ -33,6 +33,7 @@ abstract class DatabaseTestCase extends TestCase
             getenv('PROJECT_DB_USERNAME'),
             getenv('PROJECT_DB_PASSWORD'),
         );
+        self::$pdo->exec("set names utf8mb4");
     }
 
     private static function createDatabase(): void
