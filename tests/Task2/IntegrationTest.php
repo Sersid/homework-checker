@@ -3,11 +3,13 @@ declare(strict_types=1);
 
 namespace Tests\Task2;
 
-use DOMDocument;
+use PHPUnit\Framework\Attributes\TestDox;
 use SimpleXMLElement;
 use Tests\DatabaseTestCase;
+use RuntimeException;
 use function PHPUnit\Framework\assertJsonStringEqualsJsonString;
 
+#[TestDox('Корректность работы импорта и экспорта данных')]
 final class IntegrationTest extends DatabaseTestCase
 {
     public function test(): void
@@ -33,7 +35,7 @@ final class IntegrationTest extends DatabaseTestCase
 
         $result = $query->fetch();
         if (!$result) {
-            throw new \RuntimeException('Категория ' . $name . ' не найдена');
+            throw new RuntimeException('Категория ' . $name . ' не найдена');
         }
 
         return $result['code'];

@@ -19,6 +19,6 @@ function importXml($filename)
 {
 }
 
-function exportXml($filename, $categoryId)
+function exportXml($filename, $categoryCode)
 {
 }
