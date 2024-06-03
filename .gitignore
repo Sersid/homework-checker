@@ -3,3 +3,4 @@ vendor
 .phpunit.cache
 .php-cs-fixer.cache
 .mysql-data
+.phpunit.result.cache
