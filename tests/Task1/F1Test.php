@@ -9,6 +9,7 @@ use PHPUnit\Framework\Attributes\Depends;
 use PHPUnit\Framework\Attributes\TestDox;
 use PHPUnit\Framework\TestCase;
 use ReflectionClass;
+use F1;
 use function PHPUnit\Framework\assertEquals;
 use function PHPUnit\Framework\assertSame;
 use function PHPUnit\Framework\assertTrue;
@@ -88,7 +89,7 @@ final class F1Test extends TestCase
     {
         // (a * (b ^ c) + (((a / c) ^ b) % 3) ^ min(a, b, c))
         $expected = $a * ($b ** $c) + ((($a / $c) ** $b) % 3) ** min($a, $b, $c);
-        $f1 = new \F1($a, $b, $c);
+        $f1 = new F1($a, $b, $c);
 
         $result = $f1->getValue();
 

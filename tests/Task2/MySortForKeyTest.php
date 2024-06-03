@@ -10,10 +10,10 @@ use PHPUnit\Framework\TestCase;
 use ReflectionFunction;
 use function PHPUnit\Framework\assertSame;
 
-#[TestDox('Тесты функции mySortForKey')]
+#[TestDox('Функция mySortForKey():')]
 final class MySortForKeyTest extends TestCase
 {
-    #[TestDox('Тест типизации аргумента $a')]
+    #[TestDox('Не указан тип аргумента $a')]
     public function testArgumentATyping(): void
     {
         $reflectionFunc = new ReflectionFunction('mySortForKey');
@@ -23,7 +23,7 @@ final class MySortForKeyTest extends TestCase
         assertSame('array', $a?->getType()?->getName(), 'Аргумент не имеет тип array');
     }
 
-    #[TestDox('Тест типизации аргумента $b')]
+    #[TestDox('Не указан тип аргумента $b')]
     public function testArgumentBTyping(): void
     {
         $reflectionFunc = new ReflectionFunction('mySortForKey');
@@ -33,7 +33,7 @@ final class MySortForKeyTest extends TestCase
         assertSame('string', $b?->getType()?->getName(), 'Аргумент не имеет тип string');
     }
 
-    #[TestDox('Тест возвращаемого значения')]
+    #[TestDox('Не указан тип возвращаемого значения')]
     public function testReturnType(): void
     {
         $reflectionFunc = new ReflectionFunction('mySortForKey');

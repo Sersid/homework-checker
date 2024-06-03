@@ -9,10 +9,10 @@ use PHPUnit\Framework\TestCase;
 use ReflectionFunction;
 use function PHPUnit\Framework\assertSame;
 
-#[TestDox('Тесты функции convertString')]
+#[TestDox('Функция convertString():')]
 final class ConvertStringTest extends TestCase
 {
-    #[TestDox('Тест типизации аргумента $a')]
+    #[TestDox('Не указан тип аргумента $a')]
     public function testArgumentATyping(): void
     {
         $reflectionFunc = new ReflectionFunction('convertString');
@@ -22,7 +22,7 @@ final class ConvertStringTest extends TestCase
         assertSame('string', $a?->getType()?->getName(), 'Аргумент не имеет тип string');
     }
 
-    #[TestDox('Тест типизации аргумента $b')]
+    #[TestDox('Не указан тип аргумента $b')]
     public function testArgumentBTyping(): void
     {
         $reflectionFunc = new ReflectionFunction('convertString');
@@ -32,7 +32,7 @@ final class ConvertStringTest extends TestCase
         assertSame('string', $b?->getType()?->getName(), 'Аргумент не имеет тип string');
     }
 
-    #[TestDox('Тест возвращаемого значения')]
+    #[TestDox('Не указан тип возвращаемого значения')]
     public function testReturnType(): void
     {
         $reflectionFunc = new ReflectionFunction('convertString');
@@ -50,6 +50,6 @@ final class ConvertStringTest extends TestCase
     {
         $result = convertString($a, $b);
 
-        assertSame($result, $expected);
+        assertSame($expected, $result);
     }
 }

@@ -7,6 +7,7 @@ use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\TestDox;
 use PHPUnit\Framework\TestCase;
 use ReflectionFunction;
+use Exception;
 use function PHPUnit\Framework\assertEquals;
 use function PHPUnit\Framework\assertSame;
 use function squareTrapeze;
@@ -63,7 +64,7 @@ final class SquareTrapezeTest extends TestCase
     #[DataProvider('invalidDataProvider')]
     public function testNotHasKeys(array $a): void
     {
-        $this->expectException(\Exception::class);
+        $this->expectException(Exception::class);
 
         squareTrapeze($a);
     }

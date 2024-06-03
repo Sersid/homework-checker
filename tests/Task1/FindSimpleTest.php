@@ -7,6 +7,7 @@ use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\TestDox;
 use PHPUnit\Framework\TestCase;
 use ReflectionFunction;
+use Exception;
 use function findSimple;
 use function PHPUnit\Framework\assertSame;
 
@@ -109,7 +110,7 @@ final class FindSimpleTest extends TestCase
     #[TestDox('Выбрасывается исключение')]
     public function testInvalidArguments(int $a, int $b): void
     {
-        $this->expectException(\Exception::class);
+        $this->expectException(Exception::class);
 
         findSimple($a, $b);
     }

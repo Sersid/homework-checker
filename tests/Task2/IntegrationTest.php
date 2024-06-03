@@ -4,10 +4,9 @@ declare(strict_types=1);
 namespace Tests\Task2;
 
 use PHPUnit\Framework\Attributes\TestDox;
-use SimpleXMLElement;
 use Tests\DatabaseTestCase;
 use RuntimeException;
-use function PHPUnit\Framework\assertJsonStringEqualsJsonString;
+use function PHPUnit\Framework\assertXmlFileEqualsXmlFile;
 
 #[TestDox('Корректность работы импорта и экспорта данных')]
 final class IntegrationTest extends DatabaseTestCase
@@ -17,14 +16,29 @@ final class IntegrationTest extends DatabaseTestCase
         $inputFile = __DIR__ . '/xml/input.xml';
         importXml($inputFile);
 
+        $outputFile = $this->export();
+
+        assertXmlFileEqualsXmlFile($inputFile, $outputFile);
+    }
+
+    public function testRepeatedImport(): void
+    {
+        $inputFile = __DIR__ . '/xml/input.xml';
+        importXml($inputFile);
+        importXml($inputFile);
+
+        $outputFile = $this->export();
+
+        assertXmlFileEqualsXmlFile($inputFile, $outputFile);
+    }
+
+    private function export(): string
+    {
         $outputFile = tempnam(sys_get_temp_dir(), 'output');
         $categoryCode = $this->getCategoryCodeByName('Бумага');
         exportXml($outputFile, $categoryCode);
 
-        assertJsonStringEqualsJsonString(
-            json_encode(new SimpleXMLElement(file_get_contents(__DIR__ . '/xml/expected.xml')), JSON_THROW_ON_ERROR),
-            json_encode(new SimpleXMLElement(file_get_contents($outputFile)), JSON_THROW_ON_ERROR)
-        );
+        return $outputFile;
     }
 
     private function getCategoryCodeByName(string $name): string

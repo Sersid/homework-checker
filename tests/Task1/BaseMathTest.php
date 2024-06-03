@@ -9,6 +9,7 @@ use PHPUnit\Framework\Attributes\TestDox;
 use PHPUnit\Framework\TestCase;
 use ReflectionClass;
 use ReflectionMethod;
+use BaseMath;
 use function PHPUnit\Framework\assertSame;
 use function PHPUnit\Framework\assertTrue;
 
@@ -234,9 +235,9 @@ final class BaseMathTest extends TestCase
         assertSame($expected, $result);
     }
 
-    private function getBaseMathClass(): \BaseMath
+    private function getBaseMathClass(): BaseMath
     {
-        return new class () extends \BaseMath {
+        return new class () extends BaseMath {
             public function getValue(): float
             {
                 return 0;

@@ -7,6 +7,7 @@ use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\TestDox;
 use PHPUnit\Framework\TestCase;
 use ReflectionFunction;
+use Exception;
 use function getSizeForLimit;
 use function PHPUnit\Framework\assertSame;
 
@@ -98,7 +99,7 @@ final class GetSizeForLimitTest extends TestCase
     #[DataProvider('invalidDataProvider')]
     public function testIncorrectA(array $a): void
     {
-        $this->expectException(\Exception::class);
+        $this->expectException(Exception::class);
 
         getSizeForLimit($a, 1);
     }
