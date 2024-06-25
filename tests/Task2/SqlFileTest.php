@@ -34,7 +34,7 @@ final class SqlFileTest extends DatabaseTestCase
     {
         $tableFields = self::$pdo->query("DESCRIBE a_category")->fetchAll(PDO::FETCH_COLUMN);
 
-        assertTrue(in_array('code', $tableFields, true));
-        assertTrue(in_array('name', $tableFields, true));
+        assertTrue(in_array('code', $tableFields, true), 'a_category не содержит code');
+        assertTrue(in_array('name', $tableFields, true), 'a_category не содержит name');
     }
 }

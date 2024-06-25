@@ -33,10 +33,15 @@ final class IntegrationTest extends DatabaseTestCase
     public function test(string $inputFilename, string $categoryName, string $expectedFilename): void
     {
         importXml($inputFilename);
+        $categoryCode = $this->getCategoryCodeByName($categoryName);
 
-        $outputFile = $this->export($categoryName);
+        $outputFile = $this->export($categoryCode);
 
-        assertXmlFileEqualsXmlFile($expectedFilename, $outputFile);
+        assertXmlFileEqualsXmlFile(
+            $expectedFilename,
+            $outputFile,
+            'Файлы не совпадают при вызове exportXml("' . $categoryCode . '"); // ' . $categoryName
+        );
     }
 
     #[TestDox('Два импорта одного и того же файла')]
@@ -45,16 +50,20 @@ final class IntegrationTest extends DatabaseTestCase
     {
         importXml($inputFilename);
         importXml($inputFilename);
+        $categoryCode = $this->getCategoryCodeByName($categoryName);
 
-        $outputFile = $this->export($categoryName);
+        $outputFile = $this->export($categoryCode);
 
-        assertXmlFileEqualsXmlFile($expectedFilename, $outputFile);
+        assertXmlFileEqualsXmlFile(
+            $expectedFilename,
+            $outputFile,
+            'Файлы не совпадают при вызове exportXml("' . $categoryCode . '"); // ' . $categoryName
+        );
     }
 
-    private function export(string $categoryName): string
+    private function export(string $categoryCode): string
     {
         $outputFile = tempnam(sys_get_temp_dir(), 'output');
-        $categoryCode = $this->getCategoryCodeByName($categoryName);
         exportXml($outputFile, $categoryCode);
 
         return $outputFile;
