@@ -40,7 +40,9 @@ final class IntegrationTest extends DatabaseTestCase
         assertXmlFileEqualsXmlFile(
             $expectedFilename,
             $outputFile,
-            'Файлы не совпадают при вызове exportXml("' . $categoryCode . '"); // ' . $categoryName
+            "Файлы не совпадают при вызове\n" .
+            "\$categoryCode = '" .$categoryName . "';\n" .
+            "exportXml(\$outputFile, \$categoryCode);"
         );
     }
 
@@ -57,7 +59,9 @@ final class IntegrationTest extends DatabaseTestCase
         assertXmlFileEqualsXmlFile(
             $expectedFilename,
             $outputFile,
-            'Файлы не совпадают при вызове exportXml("' . $categoryCode . '"); // ' . $categoryName
+            "Файлы не совпадают при вызове:\n" .
+            "\$categoryCode = '" .$categoryName . "';\n" .
+            "exportXml(\$outputFile, \$categoryCode);"
         );
     }
 
