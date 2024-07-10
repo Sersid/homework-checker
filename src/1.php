@@ -19,10 +19,6 @@ function getSizeForLimit(array $a, float $b): array
 
 abstract class BaseMath
 {
-    protected function exp1()
-    {
-
-    }
 }
 
 class F1 extends BaseMath

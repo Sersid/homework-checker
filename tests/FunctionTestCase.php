@@ -13,13 +13,13 @@ abstract class FunctionTestCase extends TestCase
     abstract protected static function getFunctionName(): string;
 
     /**
-     * @return array{string, string}
+     * @return array{string, string} array{argument name => argument type}
      */
     abstract protected static function getFunctionArguments(): array;
 
     abstract protected static function getFunctionReturnType(): string;
 
-    private function getReflectionFunction(): ReflectionFunction
+    protected function getReflectionFunction(): ReflectionFunction
     {
         return new ReflectionFunction(static::getFunctionName());
     }
@@ -42,12 +42,12 @@ abstract class FunctionTestCase extends TestCase
 
         // expected
         $message = "Поменялась сигнатура функции. \n";
-        $message .= 'Ожидание: ' . self::getMessage($expected). "\n";
-        $message .= 'Реальность: ' . self::getMessage($result);
+        $message .= 'Ожидание: ' . self::getSignature($expected). "\n";
+        $message .= 'Реальность: ' . self::getSignature($result);
         assertSame($expected, $result, $message);
     }
 
-    private static function getMessage(array $data): string
+    private static function getSignature(array $data): string
     {
         return static::getFunctionName()
             . '(' . self::getArguments($data['arguments']) . ')'

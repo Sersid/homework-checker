@@ -4,13 +4,14 @@ declare(strict_types=1);
 namespace Tests\Task1;
 
 use PHPUnit\Framework\Attributes\DataProvider;
+use PHPUnit\Framework\Attributes\Depends;
 use PHPUnit\Framework\Attributes\TestDox;
 use Exception;
 use Tests\FunctionTestCase;
 use function PHPUnit\Framework\assertEquals;
+use function PHPUnit\Framework\assertTrue;
 use function squareTrapeze;
 
-// @todo аргумент передается по ссылке
 #[TestDox('Функция squareTrapeze():')]
 final class SquareTrapezeTest extends FunctionTestCase
 {
@@ -31,13 +32,22 @@ final class SquareTrapezeTest extends FunctionTestCase
         return 'void';
     }
 
+    #[Depends('testSignature')]
+    #[TestDox('Аргумент $a передается по ссылке')]
+    public function testAIsPassedByReference (): void
+    {
+        $parameters = $this->getReflectionFunction()->getParameters();
+
+        assertTrue($parameters[0]->isPassedByReference());
+    }
+
     public static function invalidDataProvider(): iterable
     {
         return [
             'ключ а - это кириллица' => [['a' => 1, 'b' => 3, 'c' => 5]],
             'отсутствует ключ b' => [['a' => 4, 'c' => 8]],
             'отсутствует ключ с' => [['a' => 6, 'b' => 4]],
-            'ключ с содержит строку' => [['a' => 1, 'b' => 3, 'c' => 'qwe']]
+            'ключ с содержит строку' => [['a' => 1, 'b' => 3, 'c' => 'qwe']],
         ];
     }
 
