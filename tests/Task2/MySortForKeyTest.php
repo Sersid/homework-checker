@@ -17,7 +17,7 @@ final class MySortForKeyTest extends FunctionTestCase
         return 'mySortForKey';
     }
 
-    protected static function getArguments(): array
+    protected static function getFunctionArguments(): array
     {
         return [
             'a' => 'array',
@@ -25,7 +25,7 @@ final class MySortForKeyTest extends FunctionTestCase
         ];
     }
 
-    protected static function getReturnType(): string
+    protected static function getFunctionReturnType(): string
     {
         return 'array';
     }

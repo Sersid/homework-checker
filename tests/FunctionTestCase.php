@@ -15,9 +15,9 @@ abstract class FunctionTestCase extends TestCase
     /**
      * @return array{string, string}
      */
-    abstract protected static function getArguments(): array;
+    abstract protected static function getFunctionArguments(): array;
 
-    abstract protected static function getReturnType(): string;
+    abstract protected static function getFunctionReturnType(): string;
 
     private function getReflectionFunction(): ReflectionFunction
     {
@@ -25,21 +25,47 @@ abstract class FunctionTestCase extends TestCase
     }
 
     #[TestDox('Не менялась сигнатура аргументов')]
-    public function testArguments(): void
+    public function testSignature(): void
     {
-        $result = [];
-        foreach ($this->getReflectionFunction()->getParameters() as $parameter) {
-            $result[$parameter->getName()] = $parameter?->getType()?->getName();
-        }
+        // arrange
+        $expected = [
+            'arguments' => static::getFunctionArguments(),
+            'returnType' => static::getFunctionReturnType(),
+        ];
 
-        assertSame(static::getArguments(), $result);
+        // act
+        $result['arguments'] = [];
+        foreach ($this->getReflectionFunction()->getParameters() as $parameter) {
+            $result['arguments'][$parameter->getName()] = $parameter?->getType()?->getName();
+        }
+        $result['returnType'] = (string)$this->getReflectionFunction()->getReturnType();
+
+        // expected
+        $message = "Поменялась сигнатура функции. \n";
+        $message .= 'Ожидание: ' . self::getMessage($expected). "\n";
+        $message .= 'Реальность: ' . self::getMessage($result);
+        assertSame($expected, $result, $message);
     }
 
-    #[TestDox('Не менялась сигнатура типа возвращаемого значения')]
-    public function testReturnType(): void
+    private static function getMessage(array $data): string
     {
-        $result = (string)$this->getReflectionFunction()->getReturnType();
+        return static::getFunctionName()
+            . '(' . self::getArguments($data['arguments']) . ')'
+            . self::getReturnType($data['returnType']);
+    }
 
-        assertSame(static::getReturnType(), $result);
+    private static function getArguments(array $arguments): string
+    {
+        $args = [];
+        foreach ($arguments as $name => $type) {
+            $args[] = (empty($type) ? '' : $type . ' ') . '$' . $name;
+        }
+
+        return implode(', ', $args);
+    }
+
+    private static function getReturnType(string $returnType): string
+    {
+        return empty($returnType) ? '' : ': '. $returnType;
     }
 }

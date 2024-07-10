@@ -16,7 +16,7 @@ final class ConvertStringTest extends FunctionTestCase
         return 'convertString';
     }
 
-    protected static function getArguments(): array
+    protected static function getFunctionArguments(): array
     {
         return [
             'a' => 'string',
@@ -24,7 +24,7 @@ final class ConvertStringTest extends FunctionTestCase
         ];
     }
 
-    protected static function getReturnType(): string
+    protected static function getFunctionReturnType(): string
     {
         return 'string';
     }

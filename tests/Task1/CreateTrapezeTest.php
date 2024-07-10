@@ -18,14 +18,14 @@ final class CreateTrapezeTest extends FunctionTestCase
         return 'createTrapeze';
     }
 
-    protected static function getArguments(): array
+    protected static function getFunctionArguments(): array
     {
         return [
             'a' => 'array',
         ];
     }
 
-    protected static function getReturnType(): string
+    protected static function getFunctionReturnType(): string
     {
         return 'array';
     }

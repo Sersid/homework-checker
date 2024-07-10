@@ -18,7 +18,7 @@ final class FindSimpleTest extends FunctionTestCase
         return 'findSimple';
     }
 
-    protected static function getArguments(): array
+    protected static function getFunctionArguments(): array
     {
         return [
             'a' => 'int',
@@ -26,7 +26,7 @@ final class FindSimpleTest extends FunctionTestCase
         ];
     }
 
-    protected static function getReturnType(): string
+    protected static function getFunctionReturnType(): string
     {
         return 'array';
     }
