@@ -5,49 +5,30 @@ namespace Tests\Task1;
 
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\TestDox;
-use PHPUnit\Framework\TestCase;
-use ReflectionFunction;
 use Exception;
+use Tests\FunctionTestCase;
 use function PHPUnit\Framework\assertEquals;
-use function PHPUnit\Framework\assertSame;
 use function squareTrapeze;
 
+// @todo аргумент передается по ссылке
 #[TestDox('Функция squareTrapeze():')]
-final class SquareTrapezeTest extends TestCase
+final class SquareTrapezeTest extends FunctionTestCase
 {
-    private ReflectionFunction $reflectionFunc;
-
-    protected function setUp(): void
+    protected static function getFunctionName(): string
     {
-        parent::setUp();
-        $this->reflectionFunc = new ReflectionFunction('squareTrapeze');
+        return 'squareTrapeze';
     }
 
-    #[TestDox('Содержит аргумент $a')]
-    public function testArgs(): void
+    protected static function getArguments(): array
     {
-        $args = [];
-        foreach ($this->reflectionFunc->getParameters() as $parameter) {
-            $args[] = $parameter->getName();
-        }
-
-        assertSame(['a'], $args);
+        return [
+            'a' => 'array',
+        ];
     }
 
-    #[TestDox('Указан тип $a (array)')]
-    public function testArgumentATyping(): void
+    protected static function getReturnType(): string
     {
-        $a = $this->reflectionFunc->getParameters()[0] ?? null;
-
-        assertSame('array', $a?->getType()?->getName());
-    }
-
-    #[TestDox('Указан тип возвращаемого значения (void)')]
-    public function testReturnType(): void
-    {
-        $result = (string)$this->reflectionFunc->getReturnType();
-
-        assertSame('void', $result);
+        return 'void';
     }
 
     public static function invalidDataProvider(): iterable

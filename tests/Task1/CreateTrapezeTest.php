@@ -6,47 +6,28 @@ namespace Tests\Task1;
 use Exception;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\TestDox;
-use PHPUnit\Framework\TestCase;
-use ReflectionFunction;
+use Tests\FunctionTestCase;
 use function createTrapeze;
 use function PHPUnit\Framework\assertSame;
 
 #[TestDox('Функция createTrapeze():')]
-final class CreateTrapezeTest extends TestCase
+final class CreateTrapezeTest extends FunctionTestCase
 {
-    private ReflectionFunction $reflectionFunc;
-
-    protected function setUp(): void
+    protected static function getFunctionName(): string
     {
-        parent::setUp();
-        $this->reflectionFunc = new ReflectionFunction('createTrapeze');
+        return 'createTrapeze';
     }
 
-    #[TestDox('Содержит аргумент $a')]
-    public function testArgs(): void
+    protected static function getArguments(): array
     {
-        $args = [];
-        foreach ($this->reflectionFunc->getParameters() as $parameter) {
-            $args[] = $parameter->getName();
-        }
-
-        assertSame(['a'], $args);
+        return [
+            'a' => 'array',
+        ];
     }
 
-    #[TestDox('Указан тип $a (array)')]
-    public function testArgumentATyping(): void
+    protected static function getReturnType(): string
     {
-        $a = $this->reflectionFunc->getParameters()[0] ?? null;
-
-        assertSame('array', $a?->getType()?->getName());
-    }
-
-    #[TestDox('Указан тип возвращаемого значения (array)')]
-    public function testReturnType(): void
-    {
-        $result = (string)$this->reflectionFunc->getReturnType();
-
-        assertSame('array', $result);
+        return 'array';
     }
 
     public static function dataProvider(): iterable

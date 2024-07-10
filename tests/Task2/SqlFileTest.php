@@ -11,7 +11,7 @@ use Tests\DatabaseTestCase;
 use function in_array;
 use function PHPUnit\Framework\assertTrue;
 
-#[TestDox('Тесты 2.sql')]
+#[TestDox('Файл 2.sql')]
 final class SqlFileTest extends DatabaseTestCase
 {
     #[TestDox('БД содержит таблицу $table')]
@@ -21,7 +21,7 @@ final class SqlFileTest extends DatabaseTestCase
     #[TestWith(['a_category'])]
     public function testTableExist(string $table): void
     {
-        $tables = self::$pdo->query("SHOW TABLES")->fetchAll(PDO::FETCH_COLUMN);
+        $tables = self::$pdo->query('SHOW TABLES')->fetchAll(PDO::FETCH_COLUMN);
 
         $result = in_array($table, $tables, true);
 
@@ -32,7 +32,7 @@ final class SqlFileTest extends DatabaseTestCase
     #[Depends('testTableExist')]
     public function testCategoryTable(): void
     {
-        $tableFields = self::$pdo->query("DESCRIBE a_category")->fetchAll(PDO::FETCH_COLUMN);
+        $tableFields = self::$pdo->query('DESCRIBE a_category')->fetchAll(PDO::FETCH_COLUMN);
 
         assertTrue(in_array('code', $tableFields, true), 'a_category не содержит code');
         assertTrue(in_array('name', $tableFields, true), 'a_category не содержит name');

@@ -5,41 +5,28 @@ namespace Tests\Task2;
 
 use PHPUnit\Framework\Attributes\TestDox;
 use PHPUnit\Framework\Attributes\TestWith;
-use PHPUnit\Framework\TestCase;
-use ReflectionFunction;
+use Tests\FunctionTestCase;
 use function PHPUnit\Framework\assertSame;
 
 #[TestDox('Функция convertString():')]
-final class ConvertStringTest extends TestCase
+final class ConvertStringTest extends FunctionTestCase
 {
-    #[TestDox('Не указан тип аргумента $a')]
-    public function testArgumentATyping(): void
+    protected static function getFunctionName(): string
     {
-        $reflectionFunc = new ReflectionFunction('convertString');
-
-        $a = $reflectionFunc->getParameters()[0] ?? null;
-
-        assertSame('string', $a?->getType()?->getName(), 'Аргумент не имеет тип string');
+        return 'convertString';
     }
 
-    #[TestDox('Не указан тип аргумента $b')]
-    public function testArgumentBTyping(): void
+    protected static function getArguments(): array
     {
-        $reflectionFunc = new ReflectionFunction('convertString');
-
-        $b = $reflectionFunc->getParameters()[1] ?? null;
-
-        assertSame('string', $b?->getType()?->getName(), 'Аргумент не имеет тип string');
+        return [
+            'a' => 'string',
+            'b' => 'string',
+        ];
     }
 
-    #[TestDox('Не указан тип возвращаемого значения')]
-    public function testReturnType(): void
+    protected static function getReturnType(): string
     {
-        $reflectionFunc = new ReflectionFunction('convertString');
-
-        $result = (string)$reflectionFunc->getReturnType();
-
-        assertSame('string', $result, 'Тип возвращаемого значения должен быть "string"');
+        return 'string';
     }
 
     #[TestWith(['two one two', 'two', 'two one owt'])]

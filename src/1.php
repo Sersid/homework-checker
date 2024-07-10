@@ -1,32 +1,28 @@
 <?php
 // сюда копируется содержимое файла
 
-function findSimple($a, $b)
+function findSimple(int $a, int $b): array
 {
 }
 
-function createTrapeze($a)
+function createTrapeze(array $a): array
 {
 }
 
-function squareTrapeze(&$a)
+function squareTrapeze(array &$a): void
 {
 }
 
-function getSizeForLimit($a, $b)
-{
-}
-
-function getMin($a)
-{
-}
-
-function printTrapeze($a)
+function getSizeForLimit(array $a, float $b): array
 {
 }
 
 abstract class BaseMath
 {
+    protected function exp1()
+    {
+
+    }
 }
 
 class F1 extends BaseMath

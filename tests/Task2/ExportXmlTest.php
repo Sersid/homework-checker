@@ -4,54 +4,26 @@ declare(strict_types=1);
 namespace Tests\Task2;
 
 use PHPUnit\Framework\Attributes\TestDox;
-use PHPUnit\Framework\TestCase;
-use ReflectionFunction;
-use function PHPUnit\Framework\assertNotNull;
-use function PHPUnit\Framework\assertSame;
+use Tests\FunctionTestCase;
 
 #[TestDox('Функция exportXml():')]
-final class ExportXmlTest extends TestCase
+final class ExportXmlTest extends FunctionTestCase
 {
-    private ReflectionFunction $reflectionFunc;
-
-    protected function setUp(): void
+    protected static function getFunctionName(): string
     {
-        parent::setUp();
-        $this->reflectionFunc = new ReflectionFunction('exportXml');
+        return 'exportXml';
     }
 
-    #[TestDox('Содержит аргументы $filename и $categoryCode')]
-    public function testArgs(): void
+    protected static function getArguments(): array
     {
-        $args = [];
-        foreach ($this->reflectionFunc->getParameters() as $parameter) {
-            $args[] = $parameter->getName();
-        }
-
-        assertSame(['filename', 'categoryCode'], $args);
+        return [
+            'filename' => 'string',
+            'categoryCode' => 'string',
+        ];
     }
 
-    #[TestDox('Указан тип $filename (string)')]
-    public function testArgumentFilenameTyping(): void
+    protected static function getReturnType(): string
     {
-        $filename = $this->reflectionFunc->getParameters()[0] ?? null;
-
-        assertSame('string', $filename?->getType()?->getName());
-    }
-
-    #[TestDox('Указан тип $categoryCode')]
-    public function testArgumentCategoryCodeTyping(): void
-    {
-        $categoryCode = $this->reflectionFunc->getParameters()[0] ?? null;
-
-        assertNotNull($categoryCode?->getType()?->getName());
-    }
-
-    #[TestDox('Указан тип возвращаемого значения (void)')]
-    public function testReturnType(): void
-    {
-        $result = (string)$this->reflectionFunc->getReturnType();
-
-        assertSame('void', $result);
+        return 'void';
     }
 }

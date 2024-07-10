@@ -6,41 +6,28 @@ namespace Tests\Task2;
 use Exception;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\TestDox;
-use PHPUnit\Framework\TestCase;
-use ReflectionFunction;
+use Tests\FunctionTestCase;
 use function PHPUnit\Framework\assertSame;
 
 #[TestDox('Функция mySortForKey():')]
-final class MySortForKeyTest extends TestCase
+final class MySortForKeyTest extends FunctionTestCase
 {
-    #[TestDox('Не указан тип аргумента $a')]
-    public function testArgumentATyping(): void
+    protected static function getFunctionName(): string
     {
-        $reflectionFunc = new ReflectionFunction('mySortForKey');
-
-        $a = $reflectionFunc->getParameters()[0] ?? null;
-
-        assertSame('array', $a?->getType()?->getName(), 'Аргумент не имеет тип array');
+        return 'mySortForKey';
     }
 
-    #[TestDox('Не указан тип аргумента $b')]
-    public function testArgumentBTyping(): void
+    protected static function getArguments(): array
     {
-        $reflectionFunc = new ReflectionFunction('mySortForKey');
-
-        $b = $reflectionFunc->getParameters()[1] ?? null;
-
-        assertSame('string', $b?->getType()?->getName(), 'Аргумент не имеет тип string');
+        return [
+            'a' => 'array',
+            'b' => 'string',
+        ];
     }
 
-    #[TestDox('Не указан тип возвращаемого значения')]
-    public function testReturnType(): void
+    protected static function getReturnType(): string
     {
-        $reflectionFunc = new ReflectionFunction('mySortForKey');
-
-        $result = (string)$reflectionFunc->getReturnType();
-
-        assertSame('array', $result, 'Тип возвращаемого значения должен быть "array"');
+        return 'array';
     }
 
     #[TestDox('Тест результата выполнения функции')]

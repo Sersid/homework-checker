@@ -7,18 +7,18 @@
 // USERNAME: root
 // PASSWORD: password
 
-function convertString($a, $b)
+function convertString(string $a, string $b): string
 {
 }
 
-function mySortForKey($a, $b)
+function mySortForKey(array $a, string $b): array
 {
 }
 
-function importXml($filename)
+function importXml(string $filename): void
 {
 }
 
-function exportXml($filename, $categoryCode)
+function exportXml(string $filename, string $categoryCode): void
 {
 }

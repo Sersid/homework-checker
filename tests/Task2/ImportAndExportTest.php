@@ -10,7 +10,7 @@ use RuntimeException;
 use function PHPUnit\Framework\assertXmlFileEqualsXmlFile;
 
 #[TestDox('Корректность работы импорта и экспорта данных')]
-final class IntegrationTest extends DatabaseTestCase
+final class ImportAndExportTest extends DatabaseTestCase
 {
     public static function dataProvider(): iterable
     {
@@ -75,7 +75,7 @@ final class IntegrationTest extends DatabaseTestCase
 
     private function getCategoryCodeByName(string $name): string
     {
-        $query = self::$pdo->prepare("SELECT code, name FROM a_category WHERE name=:name");
+        $query = self::$pdo->prepare('SELECT code, name FROM a_category WHERE name=:name');
         $query->bindParam(':name', $name);
         $query->execute();
 

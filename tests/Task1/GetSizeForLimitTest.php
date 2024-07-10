@@ -5,48 +5,30 @@ namespace Tests\Task1;
 
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\TestDox;
-use PHPUnit\Framework\TestCase;
-use ReflectionFunction;
 use Exception;
+use Tests\FunctionTestCase;
 use function getSizeForLimit;
 use function PHPUnit\Framework\assertSame;
 
 #[TestDox('Функция getSizeForLimit():')]
-final class GetSizeForLimitTest extends TestCase
+final class GetSizeForLimitTest extends FunctionTestCase
 {
-    private ReflectionFunction $reflectionFunc;
-
-    protected function setUp(): void
+    protected static function getFunctionName(): string
     {
-        parent::setUp();
-        $this->reflectionFunc = new ReflectionFunction('getSizeForLimit');
+        return 'getSizeForLimit';
     }
 
-    #[TestDox('Содержит аргумент $a')]
-    public function testArgs(): void
+    protected static function getArguments(): array
     {
-        $args = [];
-        foreach ($this->reflectionFunc->getParameters() as $parameter) {
-            $args[] = $parameter->getName();
-        }
-
-        assertSame(['a', 'b'], $args);
+        return [
+            'a' => 'array',
+            'b' => 'float',
+        ];
     }
 
-    #[TestDox('Указан тип $a (array)')]
-    public function testArgumentATyping(): void
+    protected static function getReturnType(): string
     {
-        $a = $this->reflectionFunc->getParameters()[0] ?? null;
-
-        assertSame('array', $a?->getType()?->getName());
-    }
-
-    #[TestDox('Указан тип $b (float)')]
-    public function testArgumentBTyping(): void
-    {
-        $b = $this->reflectionFunc->getParameters()[1] ?? null;
-
-        assertSame('float', $b?->getType()?->getName());
+        return 'array';
     }
 
     #[TestDox('Тест результата выполнения функции')]

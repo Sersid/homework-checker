@@ -5,56 +5,30 @@ namespace Tests\Task1;
 
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\TestDox;
-use PHPUnit\Framework\TestCase;
-use ReflectionFunction;
 use Exception;
+use Tests\FunctionTestCase;
 use function findSimple;
 use function PHPUnit\Framework\assertSame;
 
 #[TestDox('Функция findSimple():')]
-final class FindSimpleTest extends TestCase
+final class FindSimpleTest extends FunctionTestCase
 {
-    private ReflectionFunction $reflectionFunc;
-
-    protected function setUp(): void
+    protected static function getFunctionName(): string
     {
-        parent::setUp();
-        $this->reflectionFunc = new ReflectionFunction('findSimple');
+        return 'findSimple';
     }
 
-    #[TestDox('Содержит аргументы $a и $b')]
-    public function testArgs(): void
+    protected static function getArguments(): array
     {
-        $args = [];
-        foreach ($this->reflectionFunc->getParameters() as $parameter) {
-            $args[] = $parameter->getName();
-        }
-
-        assertSame(['a', 'b'], $args);
+        return [
+            'a' => 'int',
+            'b' => 'int',
+        ];
     }
 
-    #[TestDox('Указан тип $a (int)')]
-    public function testArgumentATyping(): void
+    protected static function getReturnType(): string
     {
-        $a = $this->reflectionFunc->getParameters()[0] ?? null;
-
-        assertSame('int', $a?->getType()?->getName());
-    }
-
-    #[TestDox('Указан тип $b (int)')]
-    public function testArgumentBTyping(): void
-    {
-        $b = $this->reflectionFunc->getParameters()[1] ?? null;
-
-        assertSame('int', $b?->getType()?->getName());
-    }
-
-    #[TestDox('Указан тип возвращаемого значения (array)')]
-    public function testReturnType(): void
-    {
-        $result = (string)$this->reflectionFunc->getReturnType();
-
-        assertSame('array', $result);
+        return 'array';
     }
 
     public static function dataProvider(): array
