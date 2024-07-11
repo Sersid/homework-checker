@@ -34,7 +34,7 @@ final class SquareTrapezeTest extends FunctionTestCase
 
     #[Depends('testSignature')]
     #[TestDox('Аргумент $a передается по ссылке')]
-    public function testAIsPassedByReference (): void
+    public function testAIsPassedByReference(): void
     {
         $parameters = $this->getReflectionFunction()->getParameters();
 
