@@ -4,7 +4,6 @@ declare(strict_types=1);
 namespace Tests\Task1;
 
 use PHPUnit\Framework\Attributes\DataProvider;
-use PHPUnit\Framework\Attributes\Depends;
 use PHPUnit\Framework\Attributes\TestDox;
 use Exception;
 use Tests\FunctionTestCase;
@@ -32,7 +31,6 @@ final class SquareTrapezeTest extends FunctionTestCase
         return 'void';
     }
 
-    #[Depends('testSignature')]
     #[TestDox('Аргумент $a передается по ссылке')]
     public function testAIsPassedByReference(): void
     {

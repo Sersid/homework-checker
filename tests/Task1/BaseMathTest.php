@@ -10,6 +10,8 @@ use PHPUnit\Framework\TestCase;
 use ReflectionClass;
 use ReflectionMethod;
 use BaseMath;
+use function in_array;
+use function PHPUnit\Framework\assertFalse;
 use function PHPUnit\Framework\assertSame;
 use function PHPUnit\Framework\assertTrue;
 
@@ -58,15 +60,31 @@ final class BaseMathTest extends TestCase
         assertTrue($this->reflectionClass->hasMethod($name));
     }
 
+    #[TestDox('Метод exp1() не абстрактный')]
+    public function testExp1NotAbstract(): void
+    {
+        $method = $this->getMethod('exp1');
+
+        assertFalse($method->isAbstract(), 'Метод exp1() не должен быть абстрактным');
+    }
+
+    #[TestDox('Метод exp2() не абстрактный')]
+    public function testExp2NotAbstract(): void
+    {
+        $method = $this->getMethod('exp2');
+
+        assertFalse($method->isAbstract(), 'Метод exp2() не должен быть абстрактным');
+    }
+
     #[TestDox('Метод exp1() должен иметь аргументы $a, $b, $c')]
-    #[Depends('testClassMustContainExp1Method')]
+    #[Depends('testExp1NotAbstract')]
     public function testExp1MustContainArgs(): void
     {
         $this->assertMethodHasArgs('exp1');
     }
 
     #[TestDox('Метод exp2() должен иметь аргументы $a, $b, $c')]
-    #[Depends('testClassMustContainExp2Method')]
+    #[Depends('testExp2NotAbstract')]
     public function testExp2MustContainArgs(): void
     {
         $this->assertMethodHasArgs('exp2');
